@@ -5,6 +5,15 @@
 ### 下载安装
 Gradle:
 ```groovy
+项目gradle中
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+}
+模块gradle中
 implementation 'com.github.goodluck028:ShowLoading:1.0.1'
 ```
 

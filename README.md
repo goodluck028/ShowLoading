@@ -5,7 +5,7 @@
 ### 下载安装
 Gradle:
 ```groovy
-implementation 'com.github.goodluck028:ShowLoading:1.0.0'
+implementation 'com.github.goodluck028:ShowLoading:1.0.1'
 ```
 
 ### 使用方法

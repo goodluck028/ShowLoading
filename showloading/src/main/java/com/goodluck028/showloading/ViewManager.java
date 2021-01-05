@@ -10,8 +10,11 @@ public class ViewManager {
 
     private ViewWrapper mViewWrapper;
     private View mContentView;
-    private TextView mErrorText;
-    private Button mRetryButton;
+    //
+    private String mErrorText;
+    private String mButtonText;
+    private View.OnClickListener mOnClickListener;
+
 
     public ViewManager(View view) {
         if(view != null) {
@@ -31,24 +34,17 @@ public class ViewManager {
     }
 
     public ViewManager setOnRetryClickListener(View.OnClickListener listener) {
-        if(mRetryButton != null){
-            mRetryButton.setVisibility(View.VISIBLE);
-            mRetryButton.setOnClickListener(listener);
-        }
+        mOnClickListener = listener;
         return this;
     }
 
     public ViewManager setRetryButtonText(String text) {
-        if(mRetryButton != null){
-            mRetryButton.setText(text);
-        }
+        mButtonText = text;
         return this;
     }
 
     public ViewManager setErrorText(String text) {
-        if(mErrorText != null){
-            mErrorText.setText(text);
-        }
+        mErrorText = text;
         return this;
     }
 
@@ -66,12 +62,24 @@ public class ViewManager {
 
     private View getErrorView(Context context){
         View view =  View.inflate(context,R.layout.view_error_view,null);
-        mErrorText = view.findViewById(R.id.tv_error);
-        mRetryButton = view.findViewById(R.id.btn_retry);
+        TextView tv = view.findViewById(R.id.tv_error);
+        Button btn = view.findViewById(R.id.btn_retry);
         if(context.getResources().getConfiguration().locale.getLanguage().equals("zh")){
-            mErrorText.setText("出错拉！\n\n检查一下网络或服务器吧！");
-            mRetryButton.setText("重试");
+            tv.setText("出错拉！\n\n检查一下网络或服务器吧！");
+            btn.setText("重试");
         }
+        //
+        if(mErrorText != null) {
+            tv.setText(mErrorText);
+        }
+        if(mButtonText != null){
+            btn.setText(mButtonText);
+        }
+        if(mOnClickListener != null){
+            btn.setOnClickListener(mOnClickListener);
+            btn.setVisibility(View.VISIBLE);
+        }
+        //
         return view;
     }
 

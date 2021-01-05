@@ -11,7 +11,7 @@ public class ViewWrapper {
 
     public ViewWrapper(View contentView) {
         mContentView = contentView;
-        //替换framelayout
+        //替换注入framelayout
         mFrameLayout = new FrameLayout(mContentView.getContext());
         mFrameLayout.setLayoutParams(mContentView.getLayoutParams());
         ViewGroup parent = (ViewGroup) mContentView.getParent();
@@ -22,7 +22,7 @@ public class ViewWrapper {
                 break;
             }
         }
-        //注入用户view
+        //嫁接用户view
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         mContentView.setLayoutParams(lp);
         mFrameLayout.addView(mContentView);

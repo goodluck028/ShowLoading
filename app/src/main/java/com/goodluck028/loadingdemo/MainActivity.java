@@ -32,7 +32,16 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                LoadingShow.with(MainActivity.this).dismiss();
+                                LoadingShow.with(MainActivity.this)
+                                        .setErrorText("oops! something wrong")
+                                        .setRetryButtonText("retry")
+                                        .setOnRetryClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                findViewById(R.id.btn_text_activity).performClick();
+                                            }
+                                        })
+                                        .showError();
                             }
                         });
                     }

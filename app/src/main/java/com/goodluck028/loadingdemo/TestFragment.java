@@ -40,5 +40,4 @@ public class TestFragment extends Fragment {
         });
         return view;
     }
-
 }

@@ -16,7 +16,7 @@ LoadingShow.with(MainActivity.this).dismiss();
 //fragment
 LoadingShow.with(TestFragment.this).showLoading();
 LoadingShow.with(TestFragment.this).dismiss();
-//
+//view
 TextView testView = findViewById(R.id.tv_test_view);
 LoadingShow.with(testView).showLoading();
 LoadingShow.with(testView).dismiss();

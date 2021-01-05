@@ -4,12 +4,12 @@
 
 ### 下载安装
 Gradle:
-``` xml
+```groovy
 implementation 'com.github.goodluck028:ShowLoading:1.0.0'
 ```
 
 ### 使用方法
-``` java
+```java
 //activity
 LoadingShow.with(MainActivity.this).showLoading();
 LoadingShow.with(MainActivity.this).dismiss();

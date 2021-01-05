@@ -20,6 +20,17 @@ LoadingShow.with(TestFragment.this).dismiss();
 TextView testView = findViewById(R.id.tv_test_view);
 LoadingShow.with(testView).showLoading();
 LoadingShow.with(testView).dismiss();
+//出错重试
+LoadingShow.with(MainActivity.this)
+    .setErrorText("oops! something wrong")
+    .setRetryButtonText("retry")
+    .setOnRetryClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            findViewById(R.id.btn_text_activity).performClick();
+        }
+    })
+    .showError();
 ```
 
 ### 注意事项

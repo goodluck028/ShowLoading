@@ -7,65 +7,42 @@ import android.graphics.Paint;
 import android.view.View;
 
 import java.util.Calendar;
-import java.util.Random;
 
 public class LoadingView extends View {
-    private class Ball {
-        int r = 36;
-        double x = 36;
-        double vx = 5+(new Random().nextFloat())*10;
-        double y;
-        double vy = 0;
-    }
 
-    //
-    private Paint mBallPaint = new Paint();
-    private Paint mLinePaint = new Paint();
-    private Ball mBall;
-    private long lastTime = Calendar.getInstance().getTimeInMillis();
+    private Paint mRectPaint = new Paint();
 
-    //
     public LoadingView(Context context) {
         super(context);
         setBackgroundColor(Color.parseColor("#ffffff"));
-        mBallPaint.setColor(Color.parseColor("#cccccc"));
-        mLinePaint.setColor(Color.parseColor("#cccccc"));
-        mLinePaint.setStrokeWidth(10);
+        mRectPaint.setColor(Color.parseColor("#cccccc"));
+        mRectPaint.setStyle(Paint.Style.FILL);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        int width = getWidth();
-        int roof = getHeight() * 1 / 5;
-        int floor = getHeight() * 4 / 5;
-        if (mBall == null) {
-            mBall = new Ball();
-            mBall.y = roof;
+        int startLeft = getWidth() / 3;
+        int rectWidth = startLeft * 2 / 15;
+        int widthDiff = startLeft / 5;
+        int midHeight = getHeight() / 2;
+        //
+        int tick = (int) (Calendar.getInstance().getTimeInMillis() % 1000);
+        for (int i = 0; i < 5; i++) {
+            int r = getHeight() / 7;
+            int left = startLeft + i * widthDiff;
+            int right = left + rectWidth;
+            //
+            int diff = Math.abs(tick - i * 100);
+            if (diff <= 500) {
+                diff = diff * r / 500;
+            } else {
+                diff = (1000 - diff) * r / 500;
+            }
+            int top = midHeight - r/2 - diff;
+            int bottom = midHeight + r/2 + diff;
+            //
+            canvas.drawRect(left, top, right, bottom, mRectPaint);
         }
-        //
-        long diff = Calendar.getInstance().getTimeInMillis() - lastTime;
-        lastTime = Calendar.getInstance().getTimeInMillis();
-        diff /= 10;
-        //
-        double vy = mBall.vy + diff;
-        mBall.y = mBall.y + (mBall.vy + vy) * diff / 2;
-        mBall.vy = vy;
-        if (mBall.y > (floor - mBall.r)) {
-            mBall.y = floor - mBall.r;
-            mBall.vy *= -0.9;
-        }
-        //
-        mBall.x = mBall.x + diff * mBall.vx;
-        if (mBall.x > width - mBall.r) {
-            mBall.x = width - mBall.r;
-            mBall.vx *= -0.9;
-        } else if (mBall.x < mBall.r) {
-            mBall.x = mBall.r;
-            mBall.vx *= -0.9;
-        }
-        //
-        canvas.drawCircle((int) mBall.x, (int) mBall.y, mBall.r, mBallPaint);
-        canvas.drawLine(0, floor, width, floor, mLinePaint);
         //
         invalidate();
     }

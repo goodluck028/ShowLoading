@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                LoadingShow.with(testView).dismiss();
+                                LoadingShow.with(testView).showError();
                             }
                         });
                     }
@@ -78,5 +78,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.lyt_test,new TestFragment());
         transaction.commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.exit(0);
     }
 }

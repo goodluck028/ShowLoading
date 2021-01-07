@@ -6,6 +6,8 @@ import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ActionBarOverlayLayout;
+import androidx.appcompat.widget.FitWindowsFrameLayout;
+import androidx.appcompat.widget.FitWindowsLinearLayout;
 import androidx.fragment.app.Fragment;
 
 public class LoadingShow {
@@ -20,10 +22,14 @@ public class LoadingShow {
         ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();
         ViewGroup contentRoot = (ViewGroup) decor.getChildAt(0);
         ViewGroup bar = (ViewGroup) contentRoot.getChildAt(1);
-        ActionBarOverlayLayout act = (ActionBarOverlayLayout) bar.getChildAt(0);
+        ViewGroup act = (ViewGroup) bar.getChildAt(0);
         View content = null;
         try {
-            content = ((FrameLayout) Reflector.getValue(act, "mContent")).getChildAt(0);
+            if (act instanceof ActionBarOverlayLayout) {
+                content = ((FrameLayout) Reflector.getValue(act, "mContent")).getChildAt(0);
+            } else if (act instanceof FitWindowsFrameLayout || act instanceof FitWindowsLinearLayout) {
+                content = act.getChildAt(1);
+            }
         } catch (Exception ex) {
         }
         return new ViewManager(content);

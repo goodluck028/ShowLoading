@@ -14,7 +14,7 @@ allprojects {
     }
 }
 //模块gradle中
-implementation 'com.github.goodluck028:ShowLoading:1.0.2'
+implementation 'com.github.goodluck028:ShowLoading:1.0.3'
 ```
 
 ### 使用方法
